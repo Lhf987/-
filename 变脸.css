@@ -1,0 +1,359 @@
+:root {
+    --shine: rgb(251, 136, 200);
+    /* 定义自定义属性：光泽颜色 */
+    --primary-color: rgb(248, 175, 40);
+    /* 定义自定义属性：主色 */
+    --secondary-color: rgb(230, 63, 2);
+    /* 定义自定义属性：次色 */
+    --accent-color: rgb(58, 25, 25);
+    /* 定义自定义属性：强调色 */
+    --black-fade: rgb(120, 40, 6);
+    /* 定义自定义属性：淡化的黑色 */
+    --dark-blue: rgb(84, 84, 174);
+    /* 定义自定义属性：深蓝色 */
+}
+
+* {
+    padding: 0;
+    /* 重置所有元素的内边距为0 */
+    margin: 0;
+    /* 重置所有元素的外边距为0 */
+    list-style: none;
+    /* 去掉列表项的默认样式 */
+}
+
+body {
+    display: flex;
+    /* 采用flex布局 */
+    align-items: center;
+    /* 垂直方向居中 */
+    justify-content: center;
+    /* 水平方向居中 */
+    height: 100vh;
+    /* 高度设为视口高度 */
+    overflow: hidden;
+    /* 隐藏超出视口的内容 */
+    background-color: #9197f1;
+    /* 设置背景颜色为淡紫色 */
+}
+
+#emoji {
+    position: relative;
+    /* 相对定位 */
+    width: 450px;
+    /* 宽度设为450像素 */
+    height: 400px;
+    /* 高度设为400像素 */
+    transform: translate3d(0, 0, 0);
+    /* 启用3D转换，保持默认值 */
+}
+
+.layer {
+    position: absolute;
+    /* 绝对定位 */
+    width: 100%;
+    /* 宽度设为父元素的100% */
+    height: 100%;
+    /* 高度设为父元素的100% */
+}
+
+.face {
+    position: absolute;
+    /* 绝对定位 */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* 四边都设为0以居中 */
+    margin: auto;
+    /* 自动计算外边距，以保证居中 */
+    width: 230px;
+    /* 宽度设为230像素 */
+    height: 230px;
+    /* 高度设为230像素 */
+    background-color: #FECA32;
+    /* 设置背景颜色为黄色 */
+    border-radius: 100%;
+    /* 圆形边框 */
+    box-shadow: inset rgba(0, 0, 0, 0.4) 0 0 30px;
+    /* 内部投影，制造深度感 */
+    transition: .3s;
+    /* 设置过渡效果时间为0.3秒 */
+}
+
+.shine {
+    position: absolute;
+    /* 绝对定位 */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* 四边都设为0以居中 */
+    margin: auto;
+    /* 自动计算外边距，以保证居中 */
+    width: 194px;
+    /* 宽度设为194像素 */
+    height: 206px;
+    /* 高度设为206像素 */
+    background: linear-gradient(to bottom, #FFFFFF,
+            rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0));
+    /* 设置线性渐变背景 */
+    border-radius: 100%;
+    /* 圆形边框 */
+    opacity: 0.8;
+    /* 设置不透明度为0.8 */
+}
+
+.eye {
+    width: 24px;
+    /* 眼睛的宽度 */
+    height: 38px;
+    /* 眼睛的高度 */
+    background-color: #A1620F;
+    /* 眼睛的背景颜色 */
+    border-radius: 100%;
+    /* 圆形边框 */
+    box-shadow: inset rgba(0, 0, 0, 0.5) 0 6px 12px,
+        rgba(255, 255, 255, 0.2) 0 2px 0 2px;
+    /* 内部和外部的阴影 */
+    transition: .3s;
+    /* 过渡效果时间为0.3秒 */
+}
+
+.eye.left {
+    position: absolute;
+    /* 绝对定位 */
+    top: 0;
+    right: 70px;
+    bottom: 40px;
+    left: 0;
+    /* 通过设置边距实现眼睛的位置 */
+    margin: auto;
+    /* 自动计算外边距，以保证居中 */
+}
+
+.eye.right {
+    position: absolute;
+    /* 绝对定位 */
+    top: 0;
+    right: 0;
+    bottom: 40px;
+    left: 70px;
+    /* 通过设置边距实现眼睛的位置 */
+    margin: auto;
+    /* 自动计算外边距，以保证居中 */
+}
+
+.left::before {
+    content: "";
+    /* 添加伪元素 */
+    position: absolute;
+    /* 绝对定位 */
+    z-index: 3;
+    /* 设置堆叠顺序 */
+    width: 100px;
+    /* 宽度设为100像素 */
+    height: 85px;
+    /* 高度设为85像素 */
+    border-radius: 50%;
+    /* 边框半径设为50% */
+    background: radial-gradient(circle at 0 0, transparent 80%,
+            var(--black-fade)80%, var(--black-fade)90%, transparent 90%);
+    /* 径向渐变背景 */
+    bottom: 80px;
+    /* 距底部80像素 */
+    right: 0px;
+    /* 距右边0像素 */
+    transform: rotatez(25deg);
+    /* 旋转25度 */
+    opacity: 0;
+    /* 不透明度设为0 */
+}
+
+.right::before {
+    content: "";
+    /* 添加伪元素 */
+    position: absolute;
+    /* 绝对定位 */
+    z-index: 3;
+    /* 设置堆叠顺序 */
+    width: 100px;
+    /* 宽度设为100像素 */
+    height: 85px;
+    /* 高度设为85像素 */
+    border-radius: 50%;
+    /* 边框半径设为50% */
+    background: radial-gradient(circle at 100% 0, transparent 80%,
+            var(--black-fade)80%, var(--black-fade)90%, transparent 90%);
+    /* 径向渐变背景 */
+    bottom: 80px;
+    /* 距底部80像素 */
+    left: 0px;
+    /* 距左边0像素 */
+    transform: rotatez(-25deg);
+    /* 旋转-25度 */
+    opacity: 0;
+    /* 不透明度设为0 */
+}
+
+.mouth {
+    position: absolute;
+    /* 绝对定位 */
+    top: 88px;
+    /* 距顶部88像素 */
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* 左右和底部设为0以居中 */
+    margin: auto;
+    /* 自动计算外边距，以保证居中 */
+    overflow: hidden;
+    /* 隐藏超出元素范围的内容 */
+    width: 94px;
+    /* 宽度设为94像素 */
+    height: 48px;
+    /* 高度设为48像素 */
+    transition: .3s;
+    /* 过渡效果时间为0.3秒 */
+}
+
+.mouth:before {
+    position: absolute;
+    /* 绝对定位 */
+    top: 0;
+    right: 0;
+    bottom: 10px;
+    left: 0;
+    /* 设置上下左右距离居中 */
+    margin: auto;
+    /* 自动计算外边距，以保证居中 */
+    content: "";
+    /* 伪元素内容为空 */
+    width: 100%;
+    /* 宽度设为父元素的100% */
+    height: 100%;
+    /* 高度设为父元素的100% */
+    background-color: #6E440B;
+    /* 背景颜色设为深棕色 */
+    border-radius: 100%;
+    /* 圆形边框 */
+    box-shadow: rgba(255, 255, 255, 0.25) 0 3px 0;
+    /* 阴影效果 */
+    transform: scale(1);
+    /* 缩放比例设为1 */
+}
+
+.mouth:after {
+    position: absolute;
+    /* 绝对定位 */
+    top: 0;
+    right: 0;
+    bottom: 26px;
+    left: 0;
+    /* 设置上下左右距离居中 */
+    margin: auto;
+    /* 自动计算外边距，以保证居中 */
+    content: "";
+    /* 伪元素内容为空 */
+    width: calc(100% - 20px);
+    /* 宽度设为父元素宽度减20像素 */
+    height: 100%;
+    /* 高度设为父元素的100% */
+    background-color: #FECA32;
+    /* 背景颜色设为黄色 */
+    border-radius: 100%;
+    /* 圆形边框 */
+    box-shadow: rgba(0, 0, 0, 0.8) 0 4px 4px -4px;
+    /* 阴影效果 */
+    transform-origin: 50% 100%;
+    /* 设置变换的原点为元素的底部中心 */
+    transform: scale(1.6);
+    /* 缩放比例设为1.6 */
+}
+
+/* hover 状态 */
+#emoji:hover .face {
+    background-color: rgb(230, 80, 7);
+    /* 当鼠标悬停时，改变面部背景颜色为橙红色 */
+}
+
+#emoji:hover .eye {
+    height: 30px;
+    /* 当鼠标悬停时，改变眼睛的高度为30像素 */
+    box-shadow: inset rgba(0, 0, 0, 0.5) 0 6px 12px,
+        rgba(250, 160, 55, .3) 0 2px 0 2px;
+    /* 当鼠标悬停时，改变眼睛的阴影效果 */
+}
+
+#emoji:hover .left,
+#emoji:hover .right {
+    top: 45px;
+    /* 当鼠标悬停时，调整眼睛的上边距为45像素 */
+    bottom: 40px;
+    /* 当鼠标悬停时，调整眼睛的下边距为40像素 */
+}
+
+#emoji:hover .left::before,
+#emoji:hover .right::before {
+    opacity: 1;
+    /* 当鼠标悬停时，显示眼睛的光效 */
+    bottom: 40px;
+    /* 当鼠标悬停时，调整光效的底部距离为40像素 */
+    transition: .3s;
+    /* 设置过渡效果时间为0.3秒 */
+}
+
+#emoji:hover .mouth {
+    overflow: visible;
+    /* 当鼠标悬停时，显示超出元素范围的内容 */
+    top: 120px;
+    /* 当鼠标悬停时，调整嘴巴的顶部距离为120像素 */
+    width: 84px;
+    /* 当鼠标悬停时，调整嘴巴的宽度为84像素 */
+    height: 35px;
+    /* 当鼠标悬停时，调整嘴巴的高度为35像素 */
+    transform: translate3d(0, 0, 0);
+    /* 重置3D转换 */
+    background: var(--black-fade);
+    /* 背景颜色设为淡化的黑色 */
+    border-radius: 60%/80%;
+    /* 当鼠标悬停时，调整嘴巴的边框半径 */
+    box-shadow: inset 0 0 10px 1px black;
+    /* 当鼠标悬停时，设置内部阴影效果 */
+}
+
+#emoji:hover .mouth:before {
+    opacity: 0;
+    /* 当鼠标悬停时，隐藏嘴巴的前景内容 */
+}
+
+#emoji:hover .mouth:after {
+    transform: scale(1);
+    /* 当鼠标悬停时，将嘴巴后景内容缩放至原始大小 */
+    width: 68px;
+    /* 当鼠标悬停时，调整后景内容的宽度为68像素 */
+    height: 75px;
+    /* 当鼠标悬停时，调整后景内容的高度为75像素 */
+    background: linear-gradient(90deg, transparent 45%, var(--black-fade)50%, transparent 55%),
+        radial-gradient(circle at 50% 10%, rgb(240, 40, 115), var(--shine)55%);
+    /* 设置渐变背景颜色 */
+    background-repeat: no-repeat;
+    /* 禁止背景图案的重复 */
+    background-size: 100% 50%, 100% 100%;
+    /* 设置背景图案的大小 */
+    top: 15px;
+    /* 当鼠标悬停时，调整后景内容的顶部距离为15像素 */
+    bottom: auto;
+    /* 当鼠标悬停时，禁用底部对齐 */
+    left: 50%;
+    /* 当鼠标悬停时，将后景内容水平居中 */
+    margin: auto -34px;
+    /* 当鼠标悬停时，调整后景内容的外边距 */
+    border-radius: 7px 7px 50% 50%/10% 10% 50% 50%;
+    /* 当鼠标悬停时，调整后景内容的边框半径 */
+    filter: blur(2px);
+    /* 当鼠标悬停时，应用2像素的模糊滤镜 */
+    box-shadow: inset 0 -2px 3px 0 mediumvioletred,
+        inset 0 -5px 10px 7px rgb(240, 40, 115), 0 5px 10px 1px black;
+    /* 当鼠标悬停时，设置阴影效果 */
+}
