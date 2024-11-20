@@ -1,0 +1,184 @@
+/* 通用样式重置 */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* 设置整个页面的样式 */
+body {
+    width: 100vw;
+    /* 页面宽度等于视口宽度 */
+    height: 100vh;
+    /* 页面高度等于视口高度 */
+    display: flex;
+    /* 使用flex布局 */
+    justify-content: center;
+    /* 水平居中 */
+    align-items: center;
+    /* 垂直居中 */
+    background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+    /* 设置背景为线性渐变色 */
+}
+
+/* 外层容器样式 */
+.shell {
+    display: flex;
+    /* 使用flex布局 */
+    justify-content: center;
+    /* 水平居中 */
+    align-items: center;
+    /* 垂直居中 */
+}
+
+/* 卡片样式 */
+.card {
+    width: 270px;
+    /* 卡片宽度 */
+    height: 545px;
+    /* 卡片高度 */
+    position: relative;
+    /* 相对定位，用于内部绝对定位元素的参考 */
+    display: flex;
+    /* 使用flex布局 */
+    justify-content: center;
+    /* 水平居中 */
+    align-items: center;
+    /* 垂直居中 */
+    padding: 0 25px;
+    /* 内边距 */
+    perspective: 2500px;
+    /* 设置透视效果的观察距离 */
+    transition: all 0.5s;
+    /* 所有属性变化过渡效果时长为0.5秒 */
+    margin: 0 100px;
+    /* 外边距，控制卡片之间的间距 */
+}
+
+/* 卡片内部包裹层样式 */
+.wrapper {
+    transition: all 0.7s;
+    /* 所有属性变化过渡效果时长为0.7秒 */
+    position: absolute;
+    /* 绝对定位，相对于父级卡片 */
+    width: 100%;
+    /* 宽度占满父级卡片 */
+    z-index: -1;
+    /* 层级设置为低于卡片，用于显示卡片上的其他内容 */
+}
+
+/* 卡片封面图片样式 */
+.cover-image {
+    width: 100%;
+    /* 图片宽度占满父级容器 */
+    /* 可选：如果取消注释，可能导致图片拉伸变形 */
+    /* height: 100%; */
+}
+
+/* 卡片标题文本样式 */
+.title {
+    width: 100%;
+    /* 标题文本宽度占满父级容器 */
+    transition: transform 0.7s;
+    /* transform属性变化过渡效果时长为0.7秒 */
+}
+
+/* 卡片角色图片样式 */
+.character {
+    width: 100%;
+    /* 图片宽度占满父级容器 */
+    opacity: 0;
+    /* 初始设置为透明 */
+    transition: all 0.7s;
+    /* 所有属性变化过渡效果时长为0.7秒 */
+    position: absolute;
+    /* 绝对定位，相对于父级卡片 */
+    z-index: -1;
+    /* 层级设置为低于卡片，用于显示卡片上的其他内容 */
+}
+
+/* 鼠标悬停时，内部包裹层的效果 */
+.card:hover .wrapper {
+    transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
+    /* 应用透视效果和旋转效果 */
+    box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+    /* 添加阴影效果 */
+}
+
+/* 卡片内部包裹层的伪元素样式 */
+.wrapper::before,
+.wrapper::after {
+    content: "";
+    /* 添加伪元素内容 */
+    opacity: 0;
+    /* 初始设置为透明 */
+    width: 100%;
+    /* 宽度占满包裹层 */
+    height: 80px;
+    /* 高度设置为80px */
+    transition: all 0.7s;
+    /* 所有属性变化过渡效果时长为0.7秒 */
+    position: absolute;
+    /* 绝对定位，相对于父级包裹层 */
+    left: 0;
+    /* 定位到左边界 */
+}
+
+/* 包裹层的上方伪元素样式 */
+.wrapper::before {
+    top: 0;
+    /* 定位到上边界 */
+    height: 100%;
+    /* 高度占满包裹层 */
+    /* 使用线性渐变背景色 */
+    background-image: linear-gradient(to top,
+            transparent 46%,
+            rgba(12, 13, 19, 0.5) 68%,
+            rgba(12, 13, 19) 97%);
+}
+
+/* 包裹层的下方伪元素样式 */
+.wrapper::after {
+    bottom: 0;
+    /* 定位到下边界 */
+    opacity: 1;
+    /* 设置为不透明 */
+    /* 使用线性渐变背景色 */
+    background-image: linear-gradient(to bottom,
+            transparent 46%,
+            rgba(12, 13, 19, 0.5) 68%,
+            rgba(12, 13, 19) 97%);
+}
+
+/* 鼠标悬停时，伪元素的效果 */
+.card:hover .wrapper::before,
+.wrapper::after {
+    opacity: 1;
+    /* 设置为不透明 */
+}
+
+/* 鼠标悬停时，下方伪元素的高度增加 */
+.card:hover .wrapper::after {
+    height: 120px;
+    /* 高度增加到120px */
+}
+
+/* 鼠标悬停时，标题文本的位移效果 */
+.card:hover .title {
+    transform: translate3d(0%, -50px, 100px);
+    /* 应用位移和透视效果 */
+}
+
+/* 鼠标悬停时，角色图片的显示和位移效果 */
+.card:hover .character {
+    opacity: 1;
+    /* 设置为不透明 */
+    transform: translate3d(0%, -20%, 100px);
+    /* 应用位移和透视效果 */
+}
+
+/* 鼠标悬停时，整个卡片的位移效果 */
+.card:hover {
+    transform: translateY(40px);
+    /* 卡片垂直位移 */
+}
