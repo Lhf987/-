@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* 将内容区域居中显示 */
+    display: flex;
+    /* 使用 Flex 布局 */
+    justify-content: center;
+    /* 水平居中 */
+    align-items: center;
+    /* 垂直居中 */
+    min-height: 100vh;
+    /* 最小高度占据整个视口 */
+    /* 设置背景渐变色 */
+    background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+}
+
+.shell {
+    /* 设置相对定位，启用3D变换 */
+    position: relative;
+    min-width: 1000px;
+    /* 最小宽度为1000像素 */
+    display: flex;
+    /* 使用 Flex 布局 */
+    justify-content: center;
+    /* 水平居中 */
+    flex-wrap: wrap;
+    /* 换行排列子元素 */
+    transform-style: preserve-3d;
+    /* 保持3D变换 */
+    perspective: 900px;
+    /* 设置透视效果 */
+}
+
+.shell .box {
+    /* 设置相对定位和固定宽高 */
+    position: relative;
+    width: 250px;
+    /* 宽度250像素 */
+    height: 350px;
+    /* 高度350像素 */
+    transition: 0.6s;
+    /* 过渡效果时长 */
+    overflow: hidden;
+    /* 隐藏溢出部分 */
+    margin: 30px;
+    /* 外边距为30像素 */
+    transform: rotateY(0deg);
+    /* 默认Y轴旋转角度为0度 */
+    transition-delay: .1s;
+    /* 过渡延迟0.1秒 */
+    border-radius: 5px;
+    /* 设置圆角为5像素 */
+    border: #fff 5px solid;
+    /* 边框为白色5像素实线 */
+}
+
+/* 鼠标悬停在 .shell 上时 */
+.shell:hover .box {
+    transform: rotateY(20deg);
+    /* 所有 .box 元素绕Y轴旋转20度 */
+}
+
+/* 鼠标悬停在 .box 上时 */
+.shell .box:hover {
+    transform: rotateY(0deg) scale(1.25);
+    /* 当前 .box 元素恢复到0度旋转并放大到1.25倍 */
+    box-shadow: 0 25px 40px rgba(0, 0, 0, 0.7);
+    /* 添加阴影效果 */
+    z-index: 1;
+    /* 设置堆叠顺序为1，使其位于最顶层 */
+}
+
+/* 鼠标悬停在 .box 上时，其他 .box 元素的效果 */
+.shell .box:hover~.box {
+    transform: rotateY(-20deg);
+    /* 其他 .box 元素绕Y轴反向旋转20度 */
+}
+
+.shell .box .images img {
+    width: 100%;
+    /* 图片宽度100% */
+}
+
+.shell .box .content {
+    position: absolute;
+    /* 绝对定位 */
+    top: 0;
+    /* 顶部与父元素对齐 */
+    width: 90%;
+    /* 宽度90% */
+    height: 100%;
+    /* 高度100% */
+    z-index: 999;
+    /* 设置堆叠顺序为999，使内容层位于最顶层 */
+    padding: 15px;
+    /* 内边距为15像素 */
+}
+
+.shell .box .content h2 {
+    color: rgb(210, 140, 140);
+    /* 设置标题颜色 */
+    transition: 0.6s;
+    /* 过渡效果时长 */
+    font-size: 20px;
+    /* 字体大小20像素 */
+    transform: translateY(-100px);
+    /* 初始位置向上偏移100像素 */
+}
+
+/* 鼠标悬停在 .box 上时的标题效果 */
+.shell .box:hover .content h2 {
+    transform: translateY(-15px);
+    /* 标题向上偏移15像素 */
+}
+
+.shell .box .content p {
+    color: rgb(0, 0, 0);
+    /* 设置段落文本颜色 */
+    transition: 0.6s;
+    /* 过渡效果时长 */
+    font-size: 14px;
+    /* 字体大小14像素 */
+    transform: translateY(600px);
+    /* 初始位置向下偏移600像素 */
+    background-color: rgba(255, 255, 255, 0.7);
+    /* 设置背景颜色及透明度 */
+}
+
+/* 鼠标悬停在 .box 上时的段落效果 */
+.shell .box:hover .content p {
+    transform: translateY(220px);
+    /* 段落向下偏移220像素 */
+}
