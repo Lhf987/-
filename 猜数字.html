@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>猜数字</title>
+    <!-- 引入jquery，这里导入的是在线JQuery地址，也可以选择本地地址进行导入 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+
+</head>
+<!-- html界面框架 -->
+
+<body>
+    <!-- 由于存在输入框，为了对齐美观，采用外嵌表格方式 -->
+    <div>
+        <h2 align="center">猜数字游戏(1-10)</h2>
+        <table align="center">
+            <tr>
+                <td>请输入你猜的数字:</td>
+                <!-- 点击事件：猜 -->
+                <td><input type="text" name="in" style="width: 50px;" /> <button type="button"
+                        onclick="checkResult()">猜</button></td>
+            </tr>
+            <tr>
+                <td>已猜次数:</td>
+                <td align="center"><span id="times">0</span></td>
+            </tr>
+            <tr>
+                <td>结果:</td>
+                <!-- 结果显示的地方 -->
+                <td><span id="result"></span></td>
+            </tr>
+            <tr>
+                <!-- 点击事件：重开 -->
+                <td colspan="2" align="center"><button type="button" onclick="reset()" style="width: 150px;">重开</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <!-- Js操作代码部分-->
+    <script type="text/javascript">
+        // 生成 1 - 10 之间的随机数
+        var randomNum = Math.floor(Math.random() * 10) + 1;
+        // 使用 jQuery 获取元素
+        var result = jQuery("#result");
+        var inputContent = jQuery("input");
+        var count = jQuery("#times");
+
+        function checkResult() {
+            // 修改猜的次数
+            var times = parseInt(jQuery("#times").text()) + 1;
+            jQuery("#times").html(times);
+            // 比对结果
+            var guessNum = jQuery("input[name='in']").val();
+            if (guessNum > randomNum) {
+                // 写入结果
+                result.html("猜大了！");
+                // 结果样式
+                result.css("color", "red");
+                // 为方便下次输入，聚焦输入框
+                inputContent.focus();
+            } else if (guessNum < randomNum) {
+                // 写入结果
+                result.html("猜小了！");
+                // 结果样式
+                result.css("color", "blue");
+                // 为方便下次输入，聚焦输入框
+                inputContent.focus();
+            } else {
+                // 结果样式
+                result.html("猜对了！");
+                // 结果样式
+                result.css("color", "green");
+            }
+        }
+
+        function reset() {
+            // 重新生成随机数
+            randomNum = Math.floor(Math.random() * 10) + 1;
+            // 结果置空
+            result.html("");
+            // 次数置0
+            count.html("0");
+            // 输入框清空
+            inputContent.val("");
+            // 重新聚焦输入框
+            inputContent.focus();
+        }
+    </script>
+</body>
+
+</html>
