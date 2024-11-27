@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老人健康监护</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- 引入高德地图API -->
+    <script type="text/javascript"
+        src="https://webapi.amap.com/maps?v=2.0&key=89bd845f4648b8bef89b6cb042917d53&plugin=AMap.MouseTool,AMap.CircleEditor,AMap.GeometryUtil"></script>
+    <!-- 引入图表库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 地图页面 -->
+        <div id="map-page" class="page">
+            <header>
+                <h1>实时位置</h1>
+            </header>
+            <div id="map-container"></div>
+            <div class="info-panel">
+                <div class="user-info">
+                    <img src="./images/ren.png" class="avatar" alt="用户头像">
+                    <div class="user-details">
+                        <p>姓名：<span id="userName">父亲</span></p>
+                        <p>电话号码：<span id="userPhone">17730849316</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="fence-panel">
+                <div class="fence-controls">
+                    <button id="drawFenceBtn" class="fence-btn">
+                        <i class="fas fa-circle"></i>
+                        设置安全区域
+                    </button>
+                    <button id="clearFenceBtn" class="fence-btn">
+                        <i class="fas fa-trash-alt"></i>
+                        清除区域
+                    </button>
+                </div>
+                <div class="fence-status">
+                    <span class="status-dot"></span>
+                    <span class="status-text">安全区域内</span>
+                </div>
+            </div>
+            <div class="map-controls">
+                <button class="map-btn" id="zoomIn">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button class="map-btn" id="zoomOut">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="map-btn" id="locate">
+                    <i class="fas fa-location-crosshairs"></i>
+                </button>
+            </div>
+
+            <button class="emergency-btn">
+                <i class="fas fa-exclamation-triangle"></i>
+                紧急求助
+            </button>
+
+            <div class="weather-info">
+                <i class="fas fa-sun weather-icon"></i>
+                <span class="weather-text">晴天 26°C</span>
+            </div>
+
+            <div class="loading-overlay" style="display: none;">
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+
+        <!-- 健康监测页面 -->
+        <div id="health-page" class="page" style="display: none;">
+            <header>
+                <h1>健康监测</h1>
+            </header>
+            <div class="health-container">
+                <!-- 心率检测部分 -->
+                <div class="heart-rate-section">
+                    <div class="section-title">心率检测</div>
+                    <div class="heart-rate">
+                        <div class="rate-number">072</div>
+                        <div class="rate-unit">次/每分钟</div>
+                    </div>
+                    <div id="heart-rate-chart" class="chart-container"></div>
+                </div>
+
+                <!-- 触底时间部分 -->
+                <div class="ground-time-section">
+                    <div class="section-title">触地时间</div>
+                    <div class="ground-time">
+                        <div class="time-box">
+                            <div class="time-value">604</div>
+                            <div class="time-label">平均触地时间</div>
+                        </div>
+                        <div class="time-box">
+                            <div class="time-value">269</div>
+                            <div class="time-label">最小触地时间</div>
+                        </div>
+                    </div>
+                    <div id="ground-time-chart" class="chart-container"></div>
+                </div>
+
+                <!-- 外出时间展示 -->
+                <div class="outdoor-time">
+                    <div class="time-title">今日外出时间</div>
+                    <div class="time-display">
+                        <div class="time-circle">
+                            <div class="time-value">2.5</div>
+                            <div class="time-unit">小时</div>
+                        </div>
+                    </div>
+                    <div class="time-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">最近一次外出</span>
+                            <span class="stat-value">10:30-11:45</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">本周平均</span>
+                            <span class="stat-value">2.8小时/天</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 智能助手页面 -->
+        <div id="voice-page" class="page" style="display: none;">
+            <header>
+                <h1>智能助手</h1>
+            </header>
+            <div class="voice-container">
+                <div class="chat-container" id="chatContainer">
+                    <!-- 添加初始欢迎消息 -->
+                    <div class="chat-message assistant-message">
+                        <div class="message-bubble">
+                            您好！我是您的智能助手，有什么可以帮您的吗？
+                        </div>
+                    </div>
+                </div>
+                <div class="voice-input">
+                    <div class="quick-replies">
+                        <button class="quick-reply-btn">现在几点了？</button>
+                        <button class="quick-reply-btn">今天天气怎么样？</button>
+                        <button class="quick-reply-btn">穿什么衣服出门？</button>
+                    </div>
+                    <div class="input-controls">
+                        <input type="text" id="messageInput" placeholder="请输入您想说的话...">
+                        <button id="sendButton">
+                            <i class="fas fa-paper-plane"></i>
+                            发送
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部导航栏 -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-page="map-page">
+                <img src="./images/map12.png" class="nav-icon" alt="地图导航">
+                <span>地图导航</span>
+            </div>
+            <div class="nav-item" data-page="health-page">
+                <img src="./images/old.png" class="nav-icon" alt="运动健康">
+                <span>运动健康</span>
+            </div>
+            <div class="nav-item" data-page="voice-page">
+                <img src="./images/chat1.png" class="nav-icon" alt="智能助手">
+                <span>语音助手</span>
+            </div>
+        </nav>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
