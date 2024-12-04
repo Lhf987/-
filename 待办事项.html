@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>表白墙</title>
+    <!-- 引入jquery，这里导入的是在线JQuery地址，也可以选择本地地址进行导入 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+
+    <style type="text/css">
+        /* 全局边距设为0 */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 设置input输入框样式 */
+        input {
+            height: 30px;
+            width: 250px;
+        }
+
+        /* 设置单元格样式 */
+        td {
+            height: 40px;
+        }
+
+        /* 设置按钮样式 */
+        button {
+            width: 325px;
+            height: 40px;
+            background-color: #f9a100;
+            outline-color: red;
+            border: none;
+            color: white;
+        }
+
+        /* 设置消息样式 */
+        #message {
+            width: 1000px;
+            height: 650px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 align="center">表白墙</h1>
+    <table align="center">
+        <tr>
+            <td align="center" colspan="2" style="font-size: 13px;">输入后点击提交，会将信息显示在表格中</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>谁：</td>
+            <td><input type="text" id="from" /></td>
+        </tr>
+        <tr>
+            <td>对谁：</td>
+            <td><input type="text" id="to" /></td>
+        </tr>
+        <tr>
+            <td>说什么：</td>
+            <td><input type="text" id="what" /></td>
+        </tr>
+        <tr>
+            <!-- 点击事件：提交 -->
+            <td align="center" colspan="2"><button type="button" onclick="submit()">提交</button></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <div id="message">
+        <h2 align="center">留言板</h2>
+        <hr />
+    </div>
+    <!-- Js操作代码 -->
+    <script type="text/javascript">
+        function submit() {
+            // 获取DOM元素
+            var megFrom = jQuery("#from");
+            var megTo = jQuery("#to");
+            var meg = jQuery("#what");
+            // 输入判空
+            if (megFrom.val().trim() == "" || megTo.val().trim() == "" || meg.val().trim() == "") {
+                alert("信息不全，请重新输入!");
+                megFrom.val("");
+                megTo.val("");
+                meg.val("");
+                megFrom.focus();
+                return;
+            }
+            // 构造html消息字符串
+            var finalMeg = "<p>" + megFrom.val() + "对" + megTo.val() + "说：" + meg.val() + "<p/>";
+            console.log(megFrom.val() + "," + megTo.val() + "," + meg.val());
+            // 信息发送
+            jQuery(finalMeg).appendTo("#message");
+            // 清理输入框内容
+            megFrom.val("");
+            megTo.val("");
+            meg.val("");
+            // 重新聚焦
+            megFrom.focus();
+        }
+    </script>
+</body>
+
+</html>
