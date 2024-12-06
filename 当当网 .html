@@ -1,0 +1,478 @@
+<!-- prj_8_1.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>当当网企业用户注册页面设计</title>
+    <style type="text/css">
+        body {
+            background: #F6F9FB;
+        }
+
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        #div1 {
+            background: #FFFFFF;
+            margin: 50px auto;
+            width: 1001px;
+            border: 1px dashed #FAFAFA;
+            box-shadow: -10px 10px #F1F1F1;
+            height: 1300px;
+        }
+
+        #header {
+            border-bottom: 5px solid red;
+            background: url('pro81/ddnewhead_logo.gif') no-repeat top left;
+            height: 71px;
+            width: 1001px;
+        }
+
+        #header h1 {
+            color: #994480;
+            font-size: 28px;
+            padding-top: 25px;
+            padding-left: 200px;
+            font-family: 微软雅黑;
+        }
+
+        #section {
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        #section img {
+            width: 100%;
+        }
+
+        .zhanghu_info {
+            background: url("pro81/icon_qy.png") no-repeat;
+            width: 19px;
+            height: 21px;
+            margin: 12px 187px;
+        }
+
+        .zhanghu_info {
+            background-position: 0 0;
+        }
+
+        .zhanghu_text {
+            width: 122px;
+            margin: 8px 33px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        #registerForm {
+            width: 100%;
+            height: 700px;
+        }
+
+        .body {
+            margin: 0 150px;
+            color: #9e9e9e;
+        }
+
+        .b {
+            height: 65px;
+        }
+
+        table .t {
+            width: 268px;
+            padding: 0 10px 0 0;
+            text-align: right;
+            vertical-align: top;
+            color: #646464;
+            height: 30px;
+            font: 14px/30px 微软雅黑;
+        }
+
+        .text {
+            display: inline-block;
+            font: 14px/18px 'Microsoft YaHei';
+            height: 18px;
+            width: 289px;
+            margin-right: 10px;
+            padding: 5px 10px;
+            outline: 0 none;
+            border-radius: 2px;
+            color: #969696;
+        }
+
+        .qiye_info_pic {
+            background: url("pro81/icon_qy.png") no-repeat;
+            width: 19px;
+            height: 20px;
+            margin: 0px 35px;
+            background-position: 0 -29px;
+        }
+
+        .table_qiye {
+            position: relative;
+            top: 20px;
+        }
+
+        .qiye_info {
+            position: relative;
+        }
+
+        /* 定义输入内容正确与错误时统一样式  */
+
+        .red_flag {
+            color: red;
+            font-weight: bolder;
+            font-size: 16px;
+        }
+
+        /* 出错时的样式 */
+
+        .green_flag {
+            color: #00FF99;
+            font-weight: bolder;
+            font-size: 16px;
+        }
+
+        /* 正确时的样式 */
+
+        .black_flag {
+            color: black;
+        }
+
+        .info_area {
+            width: 320px;
+            height: 30px;
+            font-size: 16px;
+        }
+
+        .tel_width {
+            width: 80px;
+            height: 1em;
+        }
+
+        .btn_login {
+            width: 260px;
+            height: 35px;
+            border-radius: 12px;
+            background: red;
+            text-align: center;
+            vertical-align: middle;
+            color: #FFFFFF;
+            padding: 10px 30px;
+            text-decoration: none;
+            margin: 20px auto;
+        }
+
+        /*验证码样式定义*/
+
+        .code {
+            font-family: Arial;
+            font-style: italic;
+            color: blue;
+            font-size: 18px;
+            padding: 2px 3px;
+            letter-spacing: 3px;
+            font-weight: bolder;
+            cursor: pointer;
+            width: 150px;
+            height: 60px;
+            line-height: 30px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px dashed red;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #288bc4;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script type="text/javascript" src="pro81/verifycode.js"></script>
+</head>
+
+<body onload="createCode()">
+    <div id="div1">
+        <header id="header">
+            <h1>--企业用户注册</h1>
+        </header>
+        <section id="section">
+            <img src="pro81/login_qiye4.png" />
+        </section>
+        <div class="zhanghu_info">
+            <p class="zhanghu_text">账户信息</p>
+        </div>
+        <form id="registerForm">
+            <div class="body">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tbody>
+                        <tr class="b">
+                            <td class="t">用户名</td>
+                            <td colspan="2">
+                                <input id="username" name="username" type="text" class="text" MaxLength="20"
+                                    tabindex="1" onfocus="displayInfo();" onblur="checkName();" />
+                                <span id="info_name_flag" class="info_flag"></span>
+                                <div id="info_name" class="info_area" style="z-index: 1"></div>
+                            </td>
+                        </tr>
+                        <tr class="b">
+                            <td class="t" colspan="2">设置密码</td>
+                            <td>
+                                <input id="userpsd" name="userpsd" type="password" class="text" required="required"
+                                    onpaste="return false;" MaxLength="20" tabindex="2" onfocus="displayPsd();"
+                                    onblur="checkPassword(1);" />
+                                <span id="info_password_flag" class="info_flag"></span>
+                                <div id="info_password" class="info_area" style="z-index: 1"></div>
+                            </td>
+                        </tr>
+                        <tr class="b">
+                            <td class="t">确认密码</td>
+                            <td colspan="2">
+                                <input id="userrepsd" name="userrepsd" type="password" class="text"
+                                    onpaste="return false;" MaxLength="20" tabindex="3" onfocus="displayRePsd();"
+                                    onblur="checkPassword(2);" />
+                                <span id="info_repassword_flag" class="info_flag"></span>
+                                <div id="info_repassword" class="info_area" style="z-index: 1 "></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <script type="text/javascript ">
+						var errorflag = "×";
+						var rightflag = "√";
+
+						function checkPassword(n) {
+							var psd = $("userpsd").value;
+							var repsd = $("userrepsd").value;
+							var len_prd = psd.length;
+							var len_repsd = repsd.length;
+							switch (n) { //检查密码
+								case 1:
+									{
+										if (len_prd > 20 || len_prd < 6) {
+											$("info_password").className = "red_flag ";
+											$("info_password").innerHTML = "密码长度为6-20个字符 ";
+											$("info_password_flag").className = "red_flag ";
+											$("info_password_flag").innerHTML = errorflag;
+										} else {
+											$("info_password_flag").className = "green_flag ";
+											$("info_password_flag").innerHTML = rightflag;
+											$("info_password").className = "info_area ";
+											$("info_password").innerHTML = " ";
+										}
+										break;
+									}
+								case 2:
+									{
+										//检查重复密码	
+										if (len_repsd > 20 || len_repsd < 6) {
+											$("info_repassword").className = "red_flag ";
+											$("info_repassword").innerHTML = "密码长度为6-20个字符 ";
+											$("info_repassword_flag").className = "red_flag ";
+											$("info_repassword_flag").innerHTML = errorflag;
+										} else {
+											$("info_repassword_flag").className = "green_flag ";
+											$("info_repassword_flag").innerHTML = rightflag;
+											$("info_repassword").className = "info_area ";
+											$("info_repassword").innerHTML = " ";
+										}
+										if (psd != repsd) {
+											$("info_repassword").className = "red_flag ";
+											$("info_repassword").innerHTML = "密码与确认密码不同！ ";
+											$("info_repassword_flag").className = "red_flag ";
+											$("info_repassword_flag").innerHTML = errorflag;
+
+										} else {
+											$("info_repassword_flag").className = "green_flag";
+											$("info_repassword_flag").innerHTML = rightflag;
+											$("info_repassword").className = "info_area ";
+											$("info_repassword").innerHTML = " ";
+										}
+										break;
+									}
+							}
+						}
+
+						function $(id) {
+							return document.getElementById(id);
+						}
+
+						function checkName() {
+							var name = $("username").value;
+							//4-20个字符，可由小写字母、中文、数字组成,用户名不能为空
+							name_len = name.length;
+							if ((name_len < 4 || name_len > 20) || name_len == 0 || (name_len > 0 && name_len < 4)) {
+								$("info_name").className = "red_flag ";
+								$("info_name").innerHTML = "用户名非空,且长度为4-20个字符 ";
+								$("info_name_flag").className = "red_flag";
+								$("info_name_flag").innerHTML = errorflag;
+							} else {
+								$("info_name_flag").className = "green_flag";
+								$("info_name_flag").innerHTML = rightflag;
+								$("info_name").className = "info_area";
+								$("info_name").innerHTML = " ";
+							}
+						}
+
+						function displayInfo() { //获得焦点时，正常提示信息														
+							$("info_name").className = "black_flag";
+							$("info_name").innerHTML = "4-20个字符，由小写字母、中文、数字组成";
+						}
+
+						function displayPsd() {
+							$("info_password").className = "black_flag";
+							$("info_password").innerHTML = "密码为6-20个字符，由英文、数字及符号组成";
+
+						}
+
+						function displayRePsd() {
+							$("info_repassword").className = "black_flag";
+							$("info_repassword").innerHTML = "密码为6-20个字符，可由英文、数字及符号组成";
+						}
+					</script>
+
+                <div class="qiye_info">
+                    <div class="qiye_info_pic">
+                        <p class="zhanghu_text ">企业及联系人信息</p>
+                    </div>
+                    <table class="table_qiye" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody>
+                            <tr class="b">
+                                <td class="t">公司名称</td>
+                                <td colspan="3">
+                                    <input type="text " class="text " autocomplete="off " placeholder="请填写单位执照上的名称 "
+                                        MaxLength="60 " tabindex="4 " />
+                                    <span id="" class="info_flag"></span>
+                                    <div id="" class="info_area" style="z-index: 1 "></div>
+                                </td>
+                            </tr>
+                            <tr style="z-index: 99; ">
+                                <td class="t ">公司地址</td>
+                                <td colspan="3 ">
+                                    <div class="">
+                                        <span>
+                                            <select id="province_id " name="province_id " class="mar " tabindex="5 ">
+                                                <option value="0 ">请选择</option>
+                                                <option value="1 ">江苏</option>
+                                                <option value="2 ">山东</option>
+                                                <option value="3 ">安徽</option>
+                                                <option value="4 ">上海</option>
+                                                <option value="5 ">天津</option>
+                                            </select>
+                                        </span>
+                                        <span>
+                                            <select id="city_id " name="city_id " class="mar " tabindex="6 ">
+                                                <option value="0 ">请选择</option>
+                                                <option value="1 ">南京</option>
+                                                <option value="2 ">无锡</option>
+                                                <option value="3 ">苏州</option>
+                                                <option value="4 ">泰州</option>
+                                            </select>
+                                        </span>
+                                        <span>
+                                            <select id="town_id " name="town_id " class="companyarea " tabindex="7 ">
+                                                <option value="0 ">请选择</option>
+                                                <option value="1 ">浦口区</option>
+                                                <option value="2 ">六合区</option>
+                                                <option value="3 ">秦淮区</option>
+                                                <option value="4 ">鼓楼区</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="z-index: 1 " class="b ">
+                                <td class="t ">&nbsp;</td>
+                                <td style="z-index: 1 " colspan="3">
+                                    <input id="address" name="address" type="text " style="z-index: 1 " class="text"
+                                        placeholder="请填写街道地址 " tabindex="9 " />
+                                    <span id="Addr" class="info_flag"></span>
+                                    <div id="Info_address" class="info_area" style="z-index: 1 "></div>
+                                </td>
+                            </tr>
+                            <tr class="b ">
+                                <td class="t ">公司邮箱</td>
+                                <td style="z-index: 1 " colspan="3 ">
+                                    <input id="email " name="txt_username " type="email" class="text "
+                                        placeholder="建议填写企业邮箱 " autocomplete="off " MaxLength="40 " tabindex="10 " />
+                                    <span id="info_email_flag" class="info_flag"></span>
+                                    <div id="info_Email" class="info_area" style="z-index: 1 "></div>
+                                </td>
+                            </tr>
+                            <tr class="b ">
+                                <td class="t ">固定电话</td>
+                                <td style="z-index: 1 " colspan="3">
+                                    <input id="areaCode " name="city_code " type="text " class="text tel_width"
+                                        style="z-index: 1 " MaxLength="4 " tabindex="11 " />
+                                    <input id="telphone " name="company_tel " type="text " class="text tel_width"
+                                        style="z-index:2; " MaxLength="8 " tabindex="12 " />
+                                    <input id="telExtension " name="ext_tel " type="text " class="text tel_width"
+                                        style="z-index:2; " MaxLength="8 " tabindex="13 " />
+                                    <span id="info_tel_flag" class="info_flag"></span>
+                                    <div id="info_areaCode " class="info_area" style="z-index: 1 "></div>
+                                </td>
+                            </tr>
+                            <tr class="b ">
+                                <td class="t " style="z-index: 1 ">联系人姓名</td>
+                                <td style="z-index: 1 " colspan="3 ">
+                                    <input id="J_linkman " name="contactor " type="text " class="text " MaxLength="32 "
+                                        tabindex="14 " />
+                                    <span id="info_contacter_flag " class="info_flag "></span>
+                                    <div id="info_Linkman" class="info_area" style="z-index: 1 "></div>
+                                </td>
+                            </tr>
+                            <tr class="b ">
+                                <td class="t ">手机号</td>
+                                <td style="z-index: 1 " colspan="3 ">
+                                    <input type="text " class="text " MaxLength="11 " tabindex="15 "
+                                        pattern="^1[358][0-9]{9}$" />
+                                    <span id="info_mobile_flag" class="info_flag"></span>
+                                    <div id="info_mobile_flag" class="info_area" style="z-index: 1 "></div>
+                                </td>
+                            </tr>
+                            <tr class="b" style="z-index: 1 ">
+                                <td class="t">验证码</td>
+                                <td style="z-index: 1 " colspan="3 ">
+                                    <!-- 插入输入验证码的文本框和显示验证码的元素(如div/span等) -->
+                                    <input id="inputCode" placeholder="请输入验证码" MaxLength="4 " type="text"
+                                        class="text tel_width" tabindex="16 " onblur="validateCode()" />
+                                    <span id="info_code" class="info_flag "></span>
+                                    <span class="" id="checkCode" onclick="createCode()"></span>
+                                    <a href="javascript:void(0); " onclick="createCode()">换张图</a>
+                                    <div id="info_code_flag" class="info_area" style="z-index: 1 "></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="t ">&nbsp;</td>
+                                <td class="clause " colspan="3 ">
+                                    <span class="">
+                                        <input type="checkbox" />我已阅读并同意
+                                        <a target="_blank " href="http://help.dangdang.com/details/page12 "
+                                            tabindex="19 ">《当当交易条款》</a>和
+                                        <a target="_blank " href="http://help.dangdang.com/details/page42 "
+                                            tabindex="20 ">《当当社区条款》</a>
+                                    </span>
+                                    <div id="agreement " class="info_area " style="z-index: 1;top: 24px; "></div>
+                                </td>
+                            </tr>
+                            <tr class="b">
+                                <td class="t ">&nbsp;</td>
+                                <td colspan="3 ">
+                                    <a href="# " class="btn_login " tabindex="21 ">立即注册</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
