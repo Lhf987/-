@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 导入 Google 字体 -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300|Sacramento" rel="stylesheet">
+    <!-- 导入 Lato 和 Sacramento 字体 -->
+    <style>
+        /* 设置整个页面的样式 */
+        body {
+            height: 100vh;
+            /* 设置页面的高度为视口高度 */
+            display: flex;
+            /* 使用 Flexbox 布局 */
+            justify-content: center;
+            /* 水平居中对齐 */
+            align-items: center;
+            /* 垂直居中对齐 */
+            background-color: #f2acac;
+            /* 设置页面背景色为浅粉色 */
+        }
+
+        /* 隐藏复选框 */
+        input#open {
+            display: none;
+            /* 隐藏复选框元素，不显示在页面上 */
+        }
+
+        /* 设置卡片容器的基本样式 */
+        .card {
+            position: relative;
+            /* 让卡片具有定位属性 */
+            width: 300px;
+            /* 设置卡片的宽度 */
+            height: 300px;
+            /* 设置卡片的高度 */
+            transform-style: preserve-3d;
+            /* 允许 3D 变换 */
+            transform: perspective(2500px);
+            /* 设置视距，使得3D效果更加明显 */
+            transition: .3s;
+            /* 设置卡片翻转时的过渡效果 */
+        }
+
+        /* 卡片的正面样式 */
+        .card-front {
+            position: relative;
+            /* 设置相对定位 */
+            background-color: #fff0f3;
+            /* 设置正面背景色为浅粉色 */
+            width: 300px;
+            /* 宽度与卡片相同 */
+            height: 300px;
+            /* 高度与卡片相同 */
+            transform-origin: left;
+            /* 设置旋转的原点为卡片的左侧 */
+            box-shadow: 30px 0 50px rgba(0, 0, 0, 0.3);
+            /* 给正面添加阴影效果 */
+            transition: .3s;
+            /* 添加过渡效果，使翻转更平滑 */
+        }
+
+        /* 在卡片正面添加装饰 */
+        .card-front:before {
+            content: "";
+            /* 添加空内容 */
+            position: absolute;
+            /* 设置绝对定位 */
+            width: 280px;
+            /* 设置装饰元素的宽度 */
+            height: 280px;
+            /* 设置装饰元素的高度 */
+            background-color: #f38e8e;
+            /* 设置装饰的背景颜色 */
+            top: 10px;
+            /* 设置装饰相对正面的顶部位置 */
+            left: 10px;
+            /* 设置装饰相对正面的左侧位置 */
+        }
+
+        /* 卡片的内侧样式 */
+        .card-inside {
+            position: absolute;
+            /* 设置绝对定位 */
+            background-color: #fff0f3;
+            /* 背景色 */
+            width: 300px;
+            /* 宽度与卡片相同 */
+            height: 300px;
+            /* 高度与卡片相同 */
+            z-index: -1;
+            /* 让内侧元素处于背后 */
+            left: 0;
+            /* 设置左侧位置 */
+            top: 0;
+            /* 设置顶部位置 */
+            background-color: #f5f5f5;
+            /* 设置内侧背景色 */
+        }
+
+        /* 设置用于点击翻转卡片的透明层 */
+        .open {
+            position: absolute;
+            /* 设置绝对定位 */
+            width: 300px;
+            /* 宽度与卡片相同 */
+            height: 300px;
+            /* 高度与卡片相同 */
+            left: 0;
+            /* 设置左侧位置 */
+            top: 0;
+            /* 设置顶部位置 */
+            background-color: transparent;
+            /* 使透明层透明 */
+            z-index: 6;
+            /* 设置透明层的 z-index，使其处于最上层 */
+            cursor: pointer;
+            /* 鼠标悬停时显示为可点击状态 */
+        }
+
+        /* 当复选框被选中时，卡片正面进行翻转 */
+        #open:checked~.card-front {
+            transform: rotateY(-145deg);
+            /* 通过旋转卡片正面实现翻转效果 */
+        }
+
+        /* 当复选框被选中时，卡片正面装饰的样式变化 */
+        #open:checked~.card-front:before {
+            z-index: 5;
+            /* 设置装饰层的 z-index 使其高于卡片正面 */
+            background-color: #fff0f3;
+            /* 背景色 */
+            width: 330px;
+            /* 调整宽度 */
+            height: 300px;
+            /* 高度不变 */
+            top: 0;
+            /* 调整顶部位置 */
+            left: 0;
+            /* 调整左侧位置 */
+            background-image: url(./love.gif);
+            /* 使用 GIF 动画作为背景 */
+            background-size: cover;
+            /* 使背景图像覆盖整个区域 */
+            transform: rotateY(155deg) translateX(16px);
+            /* 3D 旋转和位移效果 */
+        }
+
+        /* 卡片正面的提示文本样式 */
+        .note {
+            position: relative;
+            /* 设置相对定位 */
+            width: 200px;
+            /* 设置宽度 */
+            height: 150px;
+            /* 设置高度 */
+            background-color: #fff0f3;
+            /* 设置背景色 */
+            top: 85px;
+            /* 设置顶部位置 */
+            left: 50px;
+            /* 设置左侧位置 */
+            color: #333;
+            /* 设置文本颜色 */
+            font: 900 35px '';
+            /* 设置字体样式 */
+            display: flex;
+            /* 使用 flex 布局 */
+            align-items: center;
+            /* 垂直居中对齐文本 */
+            text-align: center;
+            /* 水平居中对齐文本 */
+            filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));
+            /* 添加阴影效果 */
+        }
+
+        /* 图片的样式 */
+        img {
+            position: absolute;
+            /* 设置绝对定位 */
+            width: 90px;
+            /* 设置图片宽度 */
+            left: 50%;
+            /* 图片水平居中 */
+            transform: translateX(-50%);
+            /* 精确水平居中 */
+            z-index: 2;
+            /* 设置图片的 z-index */
+            top: 25px;
+            /* 设置图片距离顶部的距离 */
+        }
+
+        /* 卡片内部文本样式 */
+        .text-one {
+            position: absolute;
+            /* 设置绝对定位 */
+            color: #333;
+            /* 设置文本颜色 */
+            font-size: 15px;
+            /* 设置字体大小 */
+            top: 30px;
+            /* 设置顶部位置 */
+            width: 300px;
+            /* 设置宽度与卡片相同 */
+            text-align: center;
+            /* 设置文本居中 */
+            color: #ff9999;
+            /* 设置字体颜色 */
+            font-family: 'Sacramento';
+            /* 设置字体为 Sacramento */
+        }
+
+        /* 卡片内部文本的额外样式 */
+        .text-one:after {
+            content: "";
+            /* 添加空内容 */
+            top: 80px;
+            /* 设置位置 */
+        }
+    </style>
+
+    <title>表白情书</title>
+</head>
+
+<body>
+    <div class="card"> <!-- 创建一个包含卡片的 div 元素 -->
+        <input id="open" type="checkbox"> <!-- 创建一个复选框用于控制卡片的展开与折叠 -->
+        <label class="open" for="open"></label> <!-- 设置标签，点击标签时会控制复选框状态 -->
+
+        <div class="card-front"> <!-- 卡片的正面 -->
+            <img src="./love.png" alt="" class="love"> <!-- 显示一张图片，图片路径为 love.png -->
+            <div class="note">Open it! 💗💗💗 </div> <!-- 在卡片正面显示一条提示信息 -->
+        </div>
+
+        <div class="card-inside"> <!-- 卡片的内部 -->
+            <div class="text-one"> <!-- 包含文本内容的 div -->
+                <h1>💌520💌</h1> <!-- 显示标题 "💌520💌" -->
+                <h2> <!-- 显示副标题 -->
+                    Your eyes are really beautiful, there are rain, sun and moon, mountains,
+                    rivers, clouds, flowers and birds,
+                    but my eyes are better, because I have you in my eyes.
+                </h2>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
